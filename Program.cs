@@ -13,14 +13,31 @@
 
     запросить ход игрока
     ход игрока = считать строку
+    пока ход игрока не равен "к", "н", "б" или ""
+        вывести сообщение об ошибке
+        запросить ход игрока
+        ход игрока = считать строку
     если ход игрока = пустая строка
         выйти из цикла
-    
+   
+    если ход игрока = пустая строка
+        выйти из цикла    
+
     вывести ход компьютера
     вывести ход игрока
 
     если ход игрока = ход компьютера
         вывести "Ничья!"
+
+	если ход игрока = ход компьютера
+        вывести "Ничья!"
+    иначе если ход игрока = "к" и ход компьютера = "н"
+        вывести "Ты выиграл!"    
+    иначе если ход игрока = "н" и ход компьютера = "б"
+        вывести "Ты выиграл!"
+    иначе если ход игрока = "б" и ход компьютера = "к"
+        вывести "Ты выиграл!"
+    иначе вывести "Ты проиграл!"
 
 выйти из программы
 */
@@ -44,11 +61,32 @@ while(true)
 
     Console.Write("Твой ход (к/н/б): ");
     string playerMove = Console.ReadLine();
+    while (playerMove != "к" 
+        && playerMove != "н" 
+        && playerMove != "б" 
+        && playerMove != "")
+    {
+        Console.WriteLine("Ошибка: неправильный ход!");
+        Console.Write("Твой ход (к/н/б): ");
+        playerMove = Console.ReadLine();
+    }
     if (playerMove == "")
         break;
 
     Console.WriteLine($"Компьютер: {computerMove}");
     Console.WriteLine($"Игрок: {playerMove}");
+
+    if (playerMove == computerMove)
+        Console.WriteLine("Ничья!");
+    else if (playerMove == "к" && computerMove == "н")
+        Console.WriteLine("Ты выиграл!");
+    else if (playerMove == "н" && computerMove == "б")
+        Console.WriteLine("Ты выиграл!");
+    else if (playerMove == "б" && computerMove == "к")
+        Console.WriteLine("Ты выиграл!");
+    else
+        Console.WriteLine("Ты проиграл!");
+
     Console.WriteLine();
 }
 
