@@ -1,6 +1,8 @@
 ﻿/*
 ВывестиЗаголовокПрограммы(заголовок)
 создать генератор случайных чисел
+числоПобедИгрока, числоПобедКомпьютера, числоНичьих = 0
+
 бесконечный цикл
     ходКомпьютера = ВыполнитьХодКомпьютера
     ходИгрока = ВыполнитьХодИгрока
@@ -8,11 +10,18 @@
         выйти из цикла
     победитель = ОпределитьПобедителя(ходИгрока, ходКомпьютера)
     ВывестиПобедителя(ходКомпьютера, ходИгрока, победитель)
+
+ВывестиРезультаты
 ВыйтиИзПрограммы
 */
 
 WriteTitle("Камень, ножницы, бумага!");
+
 Random rand = new Random();
+
+int playerWins = 0;
+int computerWins = 0;
+int Draws = 0;
 
 while (true)
 {
@@ -25,6 +34,8 @@ while (true)
     string winner = GetWinner(playerMove, computerMove);
     WriteWinner(computerMove, playerMove, winner);
 }
+
+WriteResults();
 ExitApp();
 
 void WriteTitle(string title)
@@ -69,16 +80,23 @@ string VerifyPlayerMove(string playerMove)
 
 string GetWinner(string playerMove, string computerMove)
 {
-    if (playerMove == computerMove)
+    if(playerMove == computerMove)
+    {
+        Draws++;
         return "Ничья";
-    else if (playerMove == "к" && computerMove == "н")
+    }
+    else if(playerMove == "к" && computerMove == "н"
+        || playerMove == "н" && computerMove == "б"
+        || playerMove == "б" && computerMove == "к")
+    {
+        playerWins++;
         return "Игрок";
-    else if (playerMove == "н" && computerMove == "б")
-        return "Игрок";
-    else if (playerMove == "б" && computerMove == "к")
-        return "Игрок";
+    }
     else
+    {
+        computerWins++;
         return "Компьютер";
+    }
 }
 
 void WriteWinner(string computerMove, string playerMove, string winner)
@@ -93,6 +111,15 @@ void WriteWinner(string computerMove, string playerMove, string winner)
     else
         Console.WriteLine("Ты проиграл!");
     Console.WriteLine();
+}
+
+void WriteResults()
+{
+    Console.WriteLine(new string('-', 20));
+    Console.WriteLine("Результаты игры:");
+    Console.WriteLine($"Побед игрока: {playerWins}");
+    Console.WriteLine($"Побед компьютера: {computerWins}");
+    Console.WriteLine($"Ничьих: {Draws}");
 }
 
 void ExitApp()
