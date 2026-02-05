@@ -42,9 +42,11 @@
 выйти из программы
 */
 
-Console.WriteLine("Камень, ножницы, бумага!");
-Console.WriteLine();
+WriteTitle("Камень, ножницы, бумага!");
 
+int pointsToWin = 3;
+int playerPoints = 0;
+int computerPoints = 0;
 Random rand = new Random();
 
 while(true)
@@ -78,19 +80,47 @@ while(true)
 
     if (playerMove == computerMove)
         Console.WriteLine("Ничья!");
-    else if (playerMove == "к" && computerMove == "н")
+    else 
+    if (playerMove == "к" && computerMove == "н"
+        || playerMove == "н" && computerMove == "б"
+        || playerMove == "б" && computerMove == "к")
+    {
         Console.WriteLine("Ты выиграл!");
-    else if (playerMove == "н" && computerMove == "б")
-        Console.WriteLine("Ты выиграл!");
-    else if (playerMove == "б" && computerMove == "к")
-        Console.WriteLine("Ты выиграл!");
+        playerPoints++;
+        if(playerPoints == pointsToWin)
+        {
+            Console.WriteLine("Ты победил в игре!");
+            break;
+        }
+    }
     else
+    {
         Console.WriteLine("Ты проиграл!");
+        computerPoints++;
+        if(computerPoints == pointsToWin)
+        {
+            Console.WriteLine("Компьютер победил в игре!");
+            break;
+        }
+    }
 
+    Console.WriteLine($"Счет: Игрок {playerPoints} - Компьютер {computerPoints}");
     Console.WriteLine();
 }
 
-Console.WriteLine();
-Console.Write("Для выхода нажми Enter");
-Console.ReadLine();
+Console.WriteLine($"Счет: Игрок {playerPoints} - Компьютер {computerPoints}");
+ExitApp();
 
+void WriteTitle(string title)
+{
+    Console.WriteLine(title);
+    Console.WriteLine(new string('-', title.Length));
+    Console.WriteLine();
+}
+
+void ExitApp()
+{
+    Console.WriteLine();
+    Console.Write("Для выхода нажми Enter");
+    Console.ReadLine();
+}
