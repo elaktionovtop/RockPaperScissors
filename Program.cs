@@ -59,7 +59,7 @@ string GetComputerMove()
 
 string GetPlayerMove()
 {
-    Console.Write("Твой ход (к/н/б): ");
+    Console.Write("Твой ход (Enter - выход) (к/н/б): ");
     string playerMove = Console.ReadLine();
 
     return playerMove;
